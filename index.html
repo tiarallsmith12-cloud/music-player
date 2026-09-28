@@ -1,0 +1,3557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Player Gue</title>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px 15px;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    background:
+        radial-gradient(circle at 50% 20%, rgba(0,255,102,0.12), transparent 35%),
+        radial-gradient(circle at 20% 80%, rgba(0,255,102,0.05), transparent 30%),
+        #050807;
+
+    color: #eafff1;
+}
+
+
+/* =========================
+   TERMINAL
+========================= */
+
+.terminal {
+    width: min(700px, 100%);
+    margin: auto;
+
+    padding: 30px;
+
+    background: rgba(5, 15, 10, 0.88);
+
+    border: 1px solid rgba(0,255,102,0.25);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 0 25px rgba(0,255,102,0.08),
+        0 0 80px rgba(0,255,102,0.04);
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 25px;
+
+    color: #00ff66;
+
+    font-size: 13px;
+}
+
+.header::before {
+    content: "● ● ●";
+
+    letter-spacing: 4px;
+
+    color: #00ff66;
+}
+
+
+/* =========================
+   COVER
+========================= */
+
+.music-cover {
+    width: 190px;
+    height: 190px;
+
+    margin: 10px auto 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle, #102b1c 0%, #07140d 55%, #020403 100%);
+
+    border: 2px solid rgba(0,255,102,0.7);
+
+    box-shadow:
+        0 0 15px rgba(0,255,102,0.4),
+        0 0 45px rgba(0,255,102,0.2),
+        inset 0 0 30px rgba(0,255,102,0.15);
+
+    animation: floating 4s ease-in-out infinite;
+
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.music-cover:hover {
+    border-color: #00ff66;
+
+    box-shadow:
+        0 0 20px #00ff66,
+        0 0 60px rgba(0,255,102,0.35),
+        inset 0 0 35px rgba(0,255,102,0.2);
+}
+
+
+/* =========================
+   COVER ICON
+========================= */
+
+.music-cover::after {
+    content: "♫";
+
+    font-size: 70px;
+
+    color: #00ff66;
+
+    text-shadow:
+        0 0 10px #00ff66,
+        0 0 30px #00ff66,
+        0 0 60px rgba(0,255,102,0.5);
+}
+
+
+/* =========================
+   FLOATING
+========================= */
+
+@keyframes floating {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+    font-family: "Orbitron", sans-serif;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #eafff1;
+
+    text-shadow:
+        0 0 5px rgba(0,255,102,0.7),
+        0 0 15px rgba(0,255,102,0.5),
+        0 0 35px rgba(0,255,102,0.25);
+}
+
+.subtitle {
+    text-align: center;
+
+    color: #65a878;
+
+    font-size: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+
+ .status {
+    font-family: "Orbitron", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: #00ff66;
+
+    text-shadow:
+        0 0 5px rgba(0,255,102,0.7),
+        0 0 15px rgba(0,255,102,0.35);
+
+    animation: statusCyber 1.5s ease-in-out infinite;
+}
+
+@keyframes statusCyber {
+
+    0%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px rgba(0,255,102,0.5);
+    }
+
+    50% {
+        opacity: 0.55;
+        text-shadow:
+            0 0 12px #00ff66,
+            0 0 25px rgba(0,255,102,0.5);
+    }
+
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    border: 1px solid rgba(0,255,102,0.5);
+
+    background: rgba(0,255,102,0.06);
+
+    color: #00ff66;
+
+    padding: 10px 18px;
+
+    margin: 5px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: rgba(0,255,102,0.15);
+
+    border-color: #00ff66;
+
+    box-shadow:
+        0 0 12px rgba(0,255,102,0.4);
+
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================
+   PLAYER BUTTON AREA
+========================= */
+
+.player-controls {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    margin: 15px 0;
+}
+
+
+/* =========================
+   TIME
+========================= */
+
+.time {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #6fa681;
+
+    font-size: 11px;
+
+    margin-top: 8px;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-container {
+    width: 100%;
+
+    height: 6px;
+
+    background: #102018;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    border: 1px solid rgba(0,255,102,0.1);
+}
+
+#progress {
+    width: 0%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #00a83f,
+        #00ff66,
+        #8affb5
+    );
+
+    border-radius: inherit;
+
+    box-shadow:
+        0 0 10px #00ff66;
+
+    transition: width 0.1s linear;
+}
+
+
+/* =========================
+   VISUALIZER
+========================= */
+
+.visualizer {
+    height: 70px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin: 22px 0;
+
+    padding: 10px;
+}
+
+.visualizer span {
+    width: 5px;
+
+    height: 8px;
+
+    border-radius: 10px;
+
+    background: #00ff66;
+
+    box-shadow:
+        0 0 8px #00ff66,
+        0 0 15px rgba(0,255,102,0.5);
+
+    transition: height 0.08s linear;
+}
+
+
+/* =========================
+   VOLUME
+========================= */
+
+.volume-box {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 10px 0 25px;
+
+    color: #00ff66;
+}
+
+#volume {
+    width: 150px;
+
+    accent-color: #00ff66;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   LYRICS
+========================= */
+
+.lyrics {
+    max-height: 330px;
+
+    overflow-y: auto;
+
+    padding: 25px 15px;
+
+    margin-top: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,255,102,0.025),
+            rgba(0,0,0,0.25)
+        );
+
+    border: 1px solid rgba(0,255,102,0.12);
+
+    scroll-behavior: smooth;
+}
+
+
+/* scrollbar */
+
+.lyrics::-webkit-scrollbar {
+    width: 5px;
+}
+
+.lyrics::-webkit-scrollbar-track {
+    background: #07100b;
+}
+
+.lyrics::-webkit-scrollbar-thumb {
+    background: #00ff66;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 8px #00ff66;
+}
+
+
+/* lyric */
+.lyric {
+    font-family: "Orbitron", "Courier New", monospace !important;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #638b70;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.lyric.active {
+    font-family: "Orbitron", "Courier New", monospace !important;
+    font-weight: 700;
+    color: #00ff66;
+    letter-spacing: 2px;
+    text-align: center;
+
+    text-shadow:
+        0 0 8px #00ff66,
+        0 0 20px rgba(0,255,102,0.6);
+
+    transform: scale(1.04);
+}
+
+
+/* lyric aktif */
+
+.lyric.active {
+    opacity: 1;
+
+    color: white;
+
+    transform: scale(1.06);
+
+    text-shadow:
+        0 0 5px white,
+        0 0 15px #00ff66,
+        0 0 30px rgba(0,255,102,0.5);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-size: 10px;
+
+    color: #315c3e;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+    .terminal {
+        padding: 22px 15px;
+
+        border-radius: 18px;
+    }
+
+    .music-cover {
+        width: 150px;
+        height: 150px;
+    }
+
+    .music-cover::after {
+        font-size: 55px;
+    }
+
+    h1 {
+        font-size: 19px;
+    }
+
+    .lyric {
+        font-size: 14px;
+    }
+
+}
+/* =========================
+   CHAT INTERFACE
+========================= */
+
+.chat-box {
+    margin: 25px 0;
+
+    border: 1px solid rgba(0,255,102,0.2);
+
+    border-radius: 16px;
+
+    background: rgba(0,0,0,0.35);
+
+    overflow: hidden;
+
+    box-shadow:
+        inset 0 0 25px rgba(0,255,102,0.025),
+        0 0 20px rgba(0,255,102,0.04);
+}
+
+
+/* HEADER */
+
+.chat-header {
+    padding: 12px 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: rgba(0,255,102,0.05);
+
+    border-bottom: 1px solid rgba(0,255,102,0.15);
+
+    color: #00ff66;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.online-dot {
+    width: 7px;
+    height: 7px;
+
+    background: #00ff66;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px #00ff66;
+
+    animation: onlinePulse 1.5s infinite;
+}
+
+.chat-status {
+    margin-left: auto;
+
+    color: #477357;
+
+    font-size: 9px;
+}
+
+
+/* MESSAGES */
+
+.chat-messages {
+    padding: 18px 15px;
+}
+
+.message {
+    display: flex;
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+
+    align-items: flex-start;
+}
+
+.message.user {
+    justify-content: flex-end;
+
+    text-align: right;
+}
+
+
+/* AVATAR */
+
+.avatar {
+    min-width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    border: 1px solid rgba(0,255,102,0.4);
+
+    background: rgba(0,255,102,0.06);
+
+    color: #00ff66;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 0 10px rgba(0,255,102,0.08);
+}
+
+
+/* NAME */
+
+.message-name {
+    color: #00ff66;
+
+    font-size: 9px;
+
+    margin-bottom: 4px;
+
+    letter-spacing: 1px;
+}
+
+
+/* BUBBLE */
+
+.bubble {
+    display: inline-block;
+
+    padding: 9px 13px;
+
+    border-radius: 12px;
+
+    background: rgba(0,255,102,0.06);
+
+    border: 1px solid rgba(0,255,102,0.12);
+
+    color: #b8e8c7;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    box-shadow:
+        0 0 12px rgba(0,255,102,0.03);
+}
+
+.message.user .bubble {
+    background: rgba(0,255,102,0.1);
+
+    border-color: rgba(0,255,102,0.2);
+
+    color: #eafff1;
+}
+
+
+/* TIME */
+
+.message-time {
+    margin-top: 4px;
+
+    color: #315c3e;
+
+    font-size: 8px;
+}
+
+
+/* TYPING DOTS */
+
+.typing span {
+    display: inline-block;
+
+    margin-left: 2px;
+
+    color: #00ff66;
+
+    animation: typingDots 1.2s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes typingDots {
+
+    0%, 60%, 100% {
+        opacity: 0.25;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+
+}
+
+@keyframes onlinePulse {
+
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 6px #00ff66;
+    }
+
+    50% {
+        opacity: 0.4;
+        box-shadow: 0 0 15px #00ff66;
+    }
+
+}
+/* =========================
+   LIVING CYBER BACKGROUND
+========================= */
+
+body {
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* background layer */
+
+.cyber-bg {
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(0,255,102,0.08),
+            transparent 35%
+        );
+}
+
+
+/* =========================
+   MOVING GRID
+========================= */
+
+.grid {
+    position: absolute;
+
+    inset: -100%;
+
+    background-image:
+        linear-gradient(
+            rgba(0,255,102,0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,255,102,0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    transform: perspective(500px) rotateX(55deg);
+
+    animation: gridMove 12s linear infinite;
+}
+
+@keyframes gridMove {
+
+    from {
+        transform:
+            perspective(500px)
+            rotateX(55deg)
+            translateY(0);
+    }
+
+    to {
+        transform:
+            perspective(500px)
+            rotateX(55deg)
+            translateY(45px);
+    }
+
+}
+
+
+/* =========================
+   GLOW ORBS
+========================= */
+
+.orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    opacity: 0.18;
+}
+
+.orb-1 {
+    width: 280px;
+    height: 280px;
+
+    background: #00ff66;
+
+    top: 10%;
+    left: 5%;
+
+    animation: orbOne 9s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+    width: 220px;
+    height: 220px;
+
+    background: #00ff66;
+
+    right: 5%;
+    top: 40%;
+
+    animation: orbTwo 11s ease-in-out infinite alternate;
+}
+
+.orb-3 {
+    width: 180px;
+    height: 180px;
+
+    background: #00ff66;
+
+    left: 45%;
+    bottom: 5%;
+
+    animation: orbThree 8s ease-in-out infinite alternate;
+}
+
+@keyframes orbOne {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(120px, 80px);
+    }
+
+}
+
+@keyframes orbTwo {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-100px, -80px);
+    }
+
+}
+
+@keyframes orbThree {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(70px, -100px);
+    }
+
+}
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particles span {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    background: #00ff66;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px #00ff66;
+
+    opacity: 0;
+
+    animation: particleFloat 6s linear infinite;
+}
+
+.particles span:nth-child(1) {
+    left: 8%;
+    animation-delay: 0s;
+}
+
+.particles span:nth-child(2) {
+    left: 17%;
+    animation-delay: 2s;
+}
+
+.particles span:nth-child(3) {
+    left: 27%;
+    animation-delay: 4s;
+}
+
+.particles span:nth-child(4) {
+    left: 36%;
+    animation-delay: 1s;
+}
+
+.particles span:nth-child(5) {
+    left: 45%;
+    animation-delay: 3s;
+}
+
+.particles span:nth-child(6) {
+    left: 54%;
+    animation-delay: 5s;
+}
+
+.particles span:nth-child(7) {
+    left: 63%;
+    animation-delay: 2.5s;
+}
+
+.particles span:nth-child(8) {
+    left: 72%;
+    animation-delay: 4.5s;
+}
+
+.particles span:nth-child(9) {
+    left: 81%;
+    animation-delay: 1.5s;
+}
+
+.particles span:nth-child(10) {
+    left: 90%;
+    animation-delay: 3.5s;
+}
+
+.particles span:nth-child(11) {
+    left: 13%;
+    animation-delay: 5.5s;
+}
+
+.particles span:nth-child(12) {
+    left: 31%;
+    animation-delay: 2.8s;
+}
+
+.particles span:nth-child(13) {
+    left: 59%;
+    animation-delay: 4.2s;
+}
+
+.particles span:nth-child(14) {
+    left: 77%;
+    animation-delay: 1.8s;
+}
+
+.particles span:nth-child(15) {
+    left: 92%;
+    animation-delay: 5s;
+}
+
+.particles span:nth-child(16) {
+    left: 50%;
+    animation-delay: 6s;
+}
+
+@keyframes particleFloat {
+
+    0% {
+        bottom: -10px;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.5;
+    }
+
+    100% {
+        bottom: 110%;
+        opacity: 0;
+    }
+
+}
+/* =========================
+   LIVE WEB EFFECT
+========================= */
+
+body.playing .cyber-bg {
+    filter: brightness(1.25);
+}
+
+body.playing .orb {
+    opacity: 0.28;
+}
+
+body.playing .terminal {
+    box-shadow:
+        0 0 25px rgba(0,255,102,0.15),
+        0 0 70px rgba(0,255,102,0.06);
+}
+
+/* chat message animation */
+
+.live-message {
+    animation: messageIn 0.4s ease;
+}
+
+@keyframes messageIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* live system log */
+
+.log-new {
+    animation: logIn 0.5s ease;
+}
+
+@keyframes logIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* =========================
+   MOUSE GLOW
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(
+        circle,
+        rgba(0,255,102,0.12),
+        transparent 70%
+    );
+
+    pointer-events: none;
+    z-index: -1;
+
+    transition:
+        left 0.15s ease,
+        top 0.15s ease;
+}
+
+
+/* =========================
+   PLAYING GLOW
+========================= */
+
+body.playing .music-cover {
+    box-shadow:
+        0 0 20px rgba(0,255,102,0.5),
+        0 0 50px rgba(0,255,102,0.2);
+}
+
+body.playing .chat-box {
+    border-color: rgba(0,255,102,0.35);
+
+    box-shadow:
+        0 0 25px rgba(0,255,102,0.08);
+}
+
+body.playing .system-log {
+    border-color: rgba(0,255,102,0.3);
+}
+
+
+/* =========================
+   LIVE BADGE
+========================= */
+
+.live-badge {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 8px;
+
+    padding: 5px 10px;
+
+    border: 1px solid rgba(0,255,102,0.2);
+    border-radius: 20px;
+
+    color: #00ff66;
+
+    font-size: 9px;
+
+    background: rgba(0,255,102,0.05);
+}
+
+.live-badge span {
+    width: 6px;
+    height: 6px;
+
+    background: #00ff66;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 8px #00ff66;
+
+    animation: onlinePulse 1s infinite;
+}
+/* =========================
+   ANIMATION PACK
+========================= */
+
+/* TERMINAL GLOW */
+.terminal {
+    animation: terminalPulse 4s ease-in-out infinite;
+}
+
+@keyframes terminalPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(0,255,102,0.08),
+            0 0 50px rgba(0,255,102,0.03);
+    }
+
+    50% {
+        box-shadow:
+            0 0 30px rgba(0,255,102,0.16),
+            0 0 70px rgba(0,255,102,0.06);
+    }
+}
+
+
+/* COVER BERDENYUT SAAT PLAY */
+body.playing .music-cover {
+    animation:
+        floating 3s ease-in-out infinite,
+        musicPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(0,255,102,0.35),
+            0 0 40px rgba(0,255,102,0.1);
+    }
+
+    50% {
+        box-shadow:
+            0 0 30px rgba(0,255,102,0.7),
+            0 0 70px rgba(0,255,102,0.25);
+    }
+
+}
+
+
+/* CHAT MUNCUL */
+.message {
+    animation: messageIn 0.5s ease forwards;
+}
+
+@keyframes messageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* CHAT BOX GLOW */
+.chat-box {
+    animation: chatGlow 3s ease-in-out infinite;
+}
+
+@keyframes chatGlow {
+
+    0%, 100% {
+        box-shadow:
+            inset 0 0 25px rgba(0,255,102,0.02),
+            0 0 10px rgba(0,255,102,0.02);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 30px rgba(0,255,102,0.05),
+            0 0 25px rgba(0,255,102,0.08);
+    }
+
+}
+
+
+/* SYSTEM LOG BERKEDIP HALUS */
+.system-log {
+    animation: logGlow 4s ease-in-out infinite;
+}
+
+@keyframes logGlow {
+
+    0%, 100% {
+        border-color: rgba(0,255,102,0.12);
+    }
+
+    50% {
+        border-color: rgba(0,255,102,0.3);
+    }
+
+}
+
+
+/* BUTTON HOVER */
+button {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px) scale(1.03);
+
+    box-shadow:
+        0 0 15px rgba(0,255,102,0.3),
+        0 0 30px rgba(0,255,102,0.08);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+
+/* LYRIC ACTIVE LEBIH HIDUP */
+.lyric.active {
+    animation: lyricPulse 1s ease-in-out infinite;
+}
+
+@keyframes lyricPulse {
+
+    0%, 100% {
+        text-shadow:
+            0 0 8px rgba(0,255,102,0.5);
+    }
+
+    50% {
+        text-shadow:
+            0 0 18px rgba(0,255,102,0.9);
+    }
+
+}
+
+
+/* LIVE BADGE */
+.live-badge {
+    animation: badgeGlow 2s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+
+    0%, 100% {
+        box-shadow:
+            0 0 5px rgba(0,255,102,0.05);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px rgba(0,255,102,0.18);
+    }
+
+}
+/* =========================
+   SCAN EFFECT
+========================= */
+
+.terminal {
+    position: relative;
+    overflow: hidden;
+}
+
+.terminal::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+
+    background: rgba(0,255,102,0.35);
+
+    box-shadow:
+        0 0 10px #00ff66,
+        0 0 20px #00ff66;
+
+    animation: scanLine 4s linear infinite;
+
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes scanLine {
+
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+
+}
+/* =========================================
+   🔥 ULTRA CYBER MUSIC ANIMATION
+========================================= */
+
+/* TERMINAL */
+.terminal {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    border: 1px solid rgba(0,255,102,0.35);
+
+    animation:
+        terminalFloat 6s ease-in-out infinite,
+        terminalGlow 3s ease-in-out infinite;
+}
+
+@keyframes terminalFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+@keyframes terminalGlow {
+
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(0,255,102,0.08),
+            0 0 60px rgba(0,255,102,0.03);
+    }
+
+    50% {
+        box-shadow:
+            0 0 35px rgba(0,255,102,0.18),
+            0 0 100px rgba(0,255,102,0.07);
+    }
+
+}
+
+
+/* =========================================
+   NEON BORDER SWEEP
+========================================= */
+
+.terminal::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 70%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00ff66,
+        white,
+        #00ff66,
+        transparent
+    );
+
+    box-shadow:
+        0 0 10px #00ff66,
+        0 0 25px #00ff66;
+
+    animation: borderSweep 3s linear infinite;
+
+    z-index: 50;
+}
+
+@keyframes borderSweep {
+
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
+
+}
+
+
+/* =========================================
+   HOLOGRAM LINES
+========================================= */
+
+.terminal::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 5px,
+            rgba(0,255,102,0.025) 6px
+        );
+
+    opacity: 0.7;
+
+    z-index: 40;
+
+}
+
+
+/* =========================================
+   MUSIC COVER
+========================================= */
+
+.music-cover {
+
+    position: relative;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* hologram ring */
+
+.music-cover::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -12px;
+
+    border: 1px solid rgba(0,255,102,0.25);
+
+    border-radius: 50%;
+
+    animation:
+        ringRotate 8s linear infinite;
+
+}
+
+
+.music-cover::after {
+
+    content: "♫";
+
+    animation:
+        musicSymbol 2s ease-in-out infinite;
+
+}
+
+
+@keyframes ringRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+@keyframes musicSymbol {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+}
+
+
+/* =========================================
+   PLAYING MODE
+========================================= */
+
+body.playing .music-cover {
+
+    box-shadow:
+        0 0 20px rgba(0,255,102,0.6),
+        0 0 50px rgba(0,255,102,0.3),
+        0 0 100px rgba(0,255,102,0.12);
+
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+h1 {
+
+    animation:
+        titlePulse 2.5s ease-in-out infinite;
+
+}
+
+
+@keyframes titlePulse {
+
+    0%, 100% {
+
+        text-shadow:
+            0 0 5px rgba(0,255,102,0.2),
+            0 0 15px rgba(0,255,102,0.1);
+
+    }
+
+    50% {
+
+        text-shadow:
+            0 0 10px rgba(0,255,102,0.8),
+            0 0 30px rgba(0,255,102,0.4),
+            0 0 60px rgba(0,255,102,0.2);
+
+    }
+
+}
+
+
+/* =========================================
+   BUTTON HOLOGRAM
+========================================= */
+
+button {
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 50%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.15),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: 0.5s;
+
+}
+
+
+button:hover::before {
+
+    left: 150%;
+
+}
+
+
+button:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.04);
+
+}
+
+
+/* =========================================
+   CHAT FLOAT
+========================================= */
+
+.chat-box {
+
+    animation:
+        chatFloat 5s ease-in-out infinite;
+
+}
+
+
+@keyframes chatFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+}
+
+
+/* =========================================
+   CHAT BUBBLE GLOW
+========================================= */
+
+.bubble {
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.bubble:hover {
+
+    transform:
+        translateX(4px);
+
+    box-shadow:
+        0 0 15px rgba(0,255,102,0.12);
+
+}
+
+
+/* =========================================
+   VISUALIZER EXTRA GLOW
+========================================= */
+
+.visualizer span {
+
+    box-shadow:
+        0 0 8px #00ff66,
+        0 0 20px rgba(0,255,102,0.5);
+
+}
+
+
+/* =========================================
+   SYSTEM LOG
+========================================= */
+
+.system-log {
+
+    position: relative;
+
+}
+
+
+.system-log::before {
+
+    content: "SYSTEM://MUSIC_ENGINE";
+
+    position: absolute;
+
+    top: -8px;
+
+    right: 15px;
+
+    padding: 0 6px;
+
+    background: #050805;
+
+    color: #315c3e;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================
+   LIVE BADGE
+========================================= */
+
+.live-badge {
+
+    animation:
+        liveFloat 3s ease-in-out infinite;
+
+}
+
+
+@keyframes liveFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+}
+
+
+/* =========================================
+   ACTIVE LYRIC
+========================================= */
+
+.lyric.active {
+
+    transform:
+        scale(1.04);
+
+    text-shadow:
+        0 0 8px #00ff66,
+        0 0 20px rgba(0,255,102,0.5);
+
+    transition:
+        transform 0.25s ease,
+        text-shadow 0.25s ease;
+
+}
+
+
+/* =========================================
+   PROGRESS BAR
+========================================= */
+
+.progress-container {
+
+    position: relative;
+
+}
+
+
+.progress-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -4px;
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px #00ff66,
+        0 0 18px #00ff66;
+
+    left: var(--progress-position, 0%);
+
+    transition: left 0.1s linear;
+
+}
+
+
+/* =========================================
+   CYBER CORNERS
+========================================= */
+
+.terminal {
+
+    background-image:
+
+        linear-gradient(
+            rgba(0,255,102,0.02) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(0,255,102,0.02) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        30px 30px;
+
+}
+/* =========================
+   💸 MONEY RAIN
+========================= */
+
+.money-rain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.money-rain span {
+    position: absolute;
+    top: -50px;
+
+    color: #00ff66;
+    font-size: 18px;
+    font-weight: bold;
+
+    text-shadow:
+        0 0 8px rgba(0,255,102,0.8),
+        0 0 20px rgba(0,255,102,0.3);
+
+    opacity: 0;
+
+    animation: moneyFall linear infinite;
+}
+
+/* posisi + ukuran + kecepatan */
+
+.money-rain span:nth-child(1) {
+    left: 5%;
+    animation-duration: 7s;
+    animation-delay: 0s;
+}
+
+.money-rain span:nth-child(2) {
+    left: 15%;
+    animation-duration: 9s;
+    animation-delay: 2s;
+}
+
+.money-rain span:nth-child(3) {
+    left: 25%;
+    animation-duration: 6s;
+    animation-delay: 4s;
+}
+
+.money-rain span:nth-child(4) {
+    left: 35%;
+    animation-duration: 8s;
+    animation-delay: 1s;
+}
+
+.money-rain span:nth-child(5) {
+    left: 45%;
+    animation-duration: 10s;
+    animation-delay: 3s;
+}
+
+.money-rain span:nth-child(6) {
+    left: 55%;
+    animation-duration: 7s;
+    animation-delay: 5s;
+}
+
+.money-rain span:nth-child(7) {
+    left: 65%;
+    animation-duration: 9s;
+    animation-delay: 1.5s;
+}
+
+.money-rain span:nth-child(8) {
+    left: 73%;
+    animation-duration: 6s;
+    animation-delay: 3.5s;
+}
+
+.money-rain span:nth-child(9) {
+    left: 82%;
+    animation-duration: 8s;
+    animation-delay: 0.5s;
+}
+
+.money-rain span:nth-child(10) {
+    left: 90%;
+    animation-duration: 10s;
+    animation-delay: 2.5s;
+}
+
+.money-rain span:nth-child(11) {
+    left: 95%;
+    animation-duration: 7s;
+    animation-delay: 4.5s;
+}
+
+.money-rain span:nth-child(12) {
+    left: 50%;
+    animation-duration: 11s;
+    animation-delay: 6s;
+}
+
+
+@keyframes moneyFall {
+
+    0% {
+        transform:
+            translateY(-50px)
+            rotate(0deg)
+            scale(0.7);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    50% {
+        transform:
+            translateY(50vh)
+            rotate(180deg)
+            scale(1);
+    }
+
+    90% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(360deg)
+            scale(0.7);
+
+        opacity: 0;
+    }
+
+}
+/* =========================================
+   💥 GONG MODE
+========================================= */
+
+.gong-effects {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+
+/* =========================
+   RADAR
+========================= */
+
+.radar {
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0,255,102,0.08);
+
+    box-shadow:
+        0 0 0 40px rgba(0,255,102,0.015),
+        0 0 0 80px rgba(0,255,102,0.01);
+
+    opacity: 0.7;
+}
+
+.radar::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 50%;
+    height: 1px;
+
+    transform-origin: left;
+
+    background: linear-gradient(
+        90deg,
+        #00ff66,
+        transparent
+    );
+
+    box-shadow:
+        0 0 10px #00ff66;
+
+    animation: radarSpin 4s linear infinite;
+}
+
+@keyframes radarSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+.hud {
+    position: absolute;
+
+    color: #00ff66;
+
+    font-family: Consolas, monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.35;
+
+    text-shadow:
+        0 0 8px #00ff66;
+
+    animation: hudBlink 3s ease-in-out infinite;
+}
+
+.hud-tl {
+    top: 20px;
+    left: 20px;
+}
+
+.hud-tr {
+    top: 20px;
+    right: 20px;
+}
+
+.hud-bl {
+    bottom: 20px;
+    left: 20px;
+}
+
+.hud-br {
+    bottom: 20px;
+    right: 20px;
+}
+
+@keyframes hudBlink {
+    0%,100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+
+/* =========================
+   BURST
+========================= */
+
+.burst {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 0;
+    height: 0;
+}
+
+.burst span {
+    position: absolute;
+
+    color: #00ff66;
+
+    font-size: 18px;
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 10px #00ff66,
+        0 0 25px #00ff66;
+
+    animation: burstMove 4s ease-out infinite;
+}
+
+.burst span:nth-child(1) {
+    --x: -160px;
+    --y: -100px;
+    animation-delay: 0s;
+}
+
+.burst span:nth-child(2) {
+    --x: 150px;
+    --y: -120px;
+    animation-delay: .4s;
+}
+
+.burst span:nth-child(3) {
+    --x: 190px;
+    --y: 40px;
+    animation-delay: .8s;
+}
+
+.burst span:nth-child(4) {
+    --x: 120px;
+    --y: 140px;
+    animation-delay: 1.2s;
+}
+
+.burst span:nth-child(5) {
+    --x: -130px;
+    --y: 130px;
+    animation-delay: 1.6s;
+}
+
+.burst span:nth-child(6) {
+    --x: -190px;
+    --y: 30px;
+    animation-delay: 2s;
+}
+
+.burst span:nth-child(7) {
+    --x: -100px;
+    --y: -150px;
+    animation-delay: 2.4s;
+}
+
+.burst span:nth-child(8) {
+    --x: 90px;
+    --y: -160px;
+    animation-delay: 2.8s;
+}
+
+@keyframes burstMove {
+
+    0% {
+        transform:
+            translate(0,0)
+            scale(0);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform:
+            translate(var(--x),var(--y))
+            scale(1.5);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   PLAYING MODE
+========================= */
+
+body.playing .radar {
+    border-color:
+        rgba(0,255,102,0.2);
+
+    box-shadow:
+        0 0 0 40px rgba(0,255,102,0.025),
+        0 0 0 80px rgba(0,255,102,0.015),
+        0 0 80px rgba(0,255,102,0.08);
+}
+
+body.playing .hud {
+    opacity: 0.8;
+}
+
+
+/* =========================
+   SCREEN ENERGY
+========================= */
+
+body.playing::after {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(0,255,102,0.08);
+
+    box-shadow:
+        inset 0 0 100px rgba(0,255,102,0.05);
+
+    animation:
+        screenEnergy 1.5s ease-in-out infinite;
+}
+
+@keyframes screenEnergy {
+
+    0%,100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+/* =====================================
+   CYBER HOLOGRAM CORE
+===================================== */
+
+.holo-core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 180px;
+    height: 180px;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+/* RING */
+
+.holo-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0,255,102,0.3);
+
+    transform: translate(-50%, -50%);
+}
+
+.ring-1 {
+    width: 100px;
+    height: 100px;
+
+    border-top-color: #00ff66;
+    border-bottom-color: transparent;
+
+    animation: ringSpin 3s linear infinite;
+}
+
+.ring-2 {
+    width: 135px;
+    height: 135px;
+
+    border-left-color: #00ff66;
+    border-right-color: transparent;
+
+    animation:
+        ringSpinReverse 5s linear infinite;
+}
+
+.ring-3 {
+    width: 170px;
+    height: 170px;
+
+    border-top-color: rgba(0,255,102,0.7);
+    border-bottom-color: transparent;
+
+    animation: ringSpin 8s linear infinite;
+}
+
+
+/* ROTATION */
+
+@keyframes ringSpin {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+@keyframes ringSpinReverse {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+}
+
+
+/* =====================================
+   HOLOGRAM LINES
+===================================== */
+
+.holo-line {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 210px;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00ff66,
+        transparent
+    );
+
+    box-shadow:
+        0 0 8px #00ff66;
+
+    transform-origin: center;
+
+    opacity: 0.5;
+}
+
+.line-1 {
+    animation: lineRotate 4s linear infinite;
+}
+
+.line-2 {
+    animation:
+        lineRotateReverse 6s linear infinite;
+}
+
+@keyframes lineRotate {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+@keyframes lineRotateReverse {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+}
+
+
+/* =====================================
+   CORE
+===================================== */
+
+.core-dot {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #00ff66;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 10px #00ff66,
+        0 0 30px #00ff66,
+        0 0 70px rgba(0,255,102,0.7);
+
+    animation: coreEnergy 1s ease-in-out infinite;
+}
+
+@keyframes coreEnergy {
+
+    0%,100% {
+        transform:
+            translate(-50%, -50%)
+            scale(0.7);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.8);
+    }
+
+}
+
+
+/* =====================================
+   LASER
+===================================== */
+
+.laser {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 420px;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0,255,102,0.8),
+        transparent
+    );
+
+    box-shadow:
+        0 0 10px #00ff66,
+        0 0 25px rgba(0,255,102,0.5);
+
+    transform-origin: center;
+}
+
+.laser-1 {
+    animation: laserRotate 7s linear infinite;
+}
+
+.laser-2 {
+    animation:
+        laserRotateReverse 11s linear infinite;
+    opacity: 0.4;
+}
+
+@keyframes laserRotate {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+@keyframes laserRotateReverse {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+}
+
+
+/* =====================================
+   SAAT PLAY
+===================================== */
+
+body.playing .holo-core {
+    filter:
+        drop-shadow(0 0 15px #00ff66)
+        drop-shadow(0 0 35px rgba(0,255,102,0.5));
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.15);
+}
+
+body.playing .laser {
+    opacity: 0.9;
+}
+
+body.playing .core-dot {
+    box-shadow:
+        0 0 15px #00ff66,
+        0 0 40px #00ff66,
+        0 0 100px #00ff66;
+}
+/* =========================================
+   🟢 CYBER TERMINAL FONT
+========================================= */
+
+body,
+button,
+input,
+textarea,
+select {
+    font-family:
+        "Courier New",
+        Consolas,
+        "Lucida Console",
+        monospace;
+}
+
+/* JUDUL UTAMA */
+
+h1 {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: #eafff1;
+
+    text-shadow:
+        0 0 5px rgba(0,255,102,0.6),
+        0 0 15px rgba(0,255,102,0.4),
+        0 0 30px rgba(0,255,102,0.15);
+}
+
+
+/* SUBTITLE */
+
+.subtitle {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    font-size: 10px;
+
+    color: #5fa879;
+}
+
+
+/* STATUS */
+
+.status {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* BUTTON */
+
+button {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* LIRIK */
+
+.lyric {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    letter-spacing: 0.5px;
+}
+
+.lyric.active {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+/* CHAT */
+
+.chat-box {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+}
+
+.chat-header,
+.message-name,
+.message-time,
+.chat-status {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* SYSTEM LOG */
+
+.system-log {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    letter-spacing: 0.5px;
+}
+
+.log-title {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+/* LIVE BADGE */
+
+.live-badge {
+    font-family:
+        "Courier New",
+        Consolas,
+        monospace;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+.status {
+    font-family: "Courier New", monospace !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    letter-spacing: 4px !important;
+    color: #00ff66 !important;
+
+    text-shadow:
+        0 0 5px #00ff66,
+        0 0 15px #00ff66,
+        0 0 30px #00ff66;
+
+    animation: statusFinal 1s ease-in-out infinite !important;
+}
+
+@keyframes statusFinal {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(1.05);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="cyber-bg">
+    <div class="grid"></div>
+<div class="money-rain">
+    <span>$</span>
+    <span>$</span>
+    <span>💵</span>
+    <span>$</span>
+    <span>💸</span>
+    <span>$</span>
+    <span>$</span>
+    <span>💵</span>
+    <span>$</span>
+    <span>💸</span>
+    <span>$</span>
+    <span>$</span>
+    <div class="gong-effects">
+<div class="gong-effects">
+
+    <div class="holo-core">
+        <div class="holo-ring ring-1"></div>
+        <div class="holo-ring ring-2"></div>
+        <div class="holo-ring ring-3"></div>
+
+        <div class="holo-line line-1"></div>
+        <div class="holo-line line-2"></div>
+
+        <div class="core-dot"></div>
+    </div>
+
+    <div class="laser laser-1"></div>
+    <div class="laser laser-2"></div>
+
+</div>
+    <div class="radar"></div>
+
+    <div class="hud hud-tl">SYSTEM ONLINE</div>
+    <div class="hud hud-tr">MUSIC//CORE</div>
+    <div class="hud hud-bl">LIVE SIGNAL</div>
+    <div class="hud hud-br">∞ BPM</div>
+
+    <div class="burst">
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
+    </div>
+
+</div>
+</div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+<div class="music-cover">
+    🎵
+</div>
+
+<div class="status">
+    ● READY TO PLAY
+</div>
+
+    <h1>🎵 Cinderella (feat. Ty Dolla $ign)</h1>
+<div class="live-badge">
+    <span></span>
+    LIVE MUSIC SYSTEM
+</div>
+<!-- SYSTEM LOG -->
+<div class="system-log" id="systemLog">
+
+    <div class="log-title">
+        <span>></span> SYSTEM LOG
+        <span class="log-online">● ONLINE</span>
+    </div>
+
+    <div class="log-line">
+        <span class="log-time">00:01</span>
+        <span class="log-green">[OK]</span>
+        Music engine initialized
+    </div>
+
+    <div class="log-line">
+        <span class="log-time">00:02</span>
+        <span class="log-green">[OK]</span>
+        Audio source connected
+    </div>
+
+    <div class="log-line">
+        <span class="log-time">00:03</span>
+        <span class="log-green">[OK]</span>
+        Visualizer ready
+    </div>
+
+    <div class="log-line">
+        <span class="log-time">NOW</span>
+        <span class="log-green">[SYS]</span>
+        Waiting for playback...
+        <span class="cursor">_</span>
+    </div>
+
+</div>
+
+<audio
+    id="lagu"
+    src="SnapTik.Net_7689981419992403220.mp3">
+</audio>
+<button onclick="playLagu()">▶️ Play</button>
+<button onclick="pauseLagu()">⏸️ Pause</button>
+<button onclick="mundur()">⏪ 10s</button>
+<button onclick="maju()">10s ⏩</button>
+<div class="progress-container">
+    <div id="progress"></div>
+</div>
+<div class="visualizer" id="visualizer">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div class="chat-box">
+
+    <div class="chat-header">
+        <span class="online-dot"></span>
+        MUSIC TERMINAL
+        <span class="chat-status">ONLINE</span>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+        <div class="message system">
+            <div class="avatar">SYS</div>
+            <div>
+                <div class="message-name">SYSTEM</div>
+                <div class="bubble">
+                    Welcome back, user.
+                </div>
+                <div class="message-time">NOW</div>
+            </div>
+        </div>
+
+        <div class="message user">
+            <div>
+                <div class="message-name">YOU</div>
+                <div class="bubble">
+                    ▶ Let's play some music.
+                </div>
+                <div class="message-time">NOW</div>
+            </div>
+            <div class="avatar">YOU</div>
+        </div>
+
+        <div class="message system">
+            <div class="avatar">SYS</div>
+            <div>
+                <div class="message-name">MUSIC BOT</div>
+                <div class="bubble typing">
+                    Listening...
+                    <span>●</span>
+                    <span>●</span>
+                    <span>●</span>
+                </div>
+                <div class="message-time">NOW</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="volume-box">
+    🔊
+    <input
+        type="range"
+        id="volume"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+    >
+</div>
+<div class="time">
+    <span id="currentTime">0:00</span>
+    <span id="duration">0:00</span>
+</div>
+
+<div class="lyrics">
+
+        <p class="lyric" data-time="0">[Uh,$ign]</p>
+        <p class="lyric" data-time="7">[Oh,no,no,no,no,no,no,no,no,no,no,no ($ign),
+Ay]</p>
+
+        <p class="lyric" data-time="13">I been waitin' all nigh for this moment</p>
+
+        <p class="lyric" data-time="16">I been waitin' all year for this moment</p>
+
+        <p class="lyric" data-time="20">I been picturing you takin'
+off your clothes for me
+I been literally curvin'
+all these hoes for you</p>
+
+        <p class="lyric" data-time="27">Daddy told you, better
+bring your ass home</p>
+
+        <p class="lyric" data-time="30">Cinderella better get your ass home
+Man I swear the parents
+just don't understand
+        <p class="lyric" data-time="37">You ain't gotta be old to be a man</p>
+
+        <p class="lyric" data-time="40">Take my hand</p>
+
+        <p class="lyric" data-time="43">come with me to my room</p>
+    <div class="lyric" data-time="47">Girl I got a suite at the SLS</div>
+
+    <div class="lyric" data-time="50">I already know you got expensive taste</div>
+
+    <div class="lyric" data-time="54">Take my hand, follow me to my room</div>
+
+    <div class="lyric" data-time="60">Tell your little friends</div>
+
+    <div class="lyric" data-time="63">you gon' be alright</div>
+
+    <div class="lyric" data-time="64">Girl I got a plan for the whole night</div>
+
+</div>
+    </div>
+
+</div>
+
+<script>
+
+const lagu = document.getElementById("lagu");
+const lyrics = document.querySelectorAll(".lyric");
+
+const progress = document.getElementById("progress");
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+
+const cover = document.querySelector(".music-cover");
+const status = document.querySelector(".status");
+
+const visualizer = document.querySelectorAll(".visualizer span");
+const volume = document.getElementById("volume");
+
+let activeIndex = -1;
+
+let audioContext;
+let analyser;
+let source;
+let dataArray;
+let visualizerStarted = false;
+
+
+// =========================
+// PLAY
+// =========================
+
+async function playLagu() {
+
+    if (!visualizerStarted) {
+
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+
+        analyser =
+            audioContext.createAnalyser();
+
+        analyser.fftSize = 64;
+
+        source =
+            audioContext.createMediaElementSource(lagu);
+
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        dataArray =
+            new Uint8Array(analyser.frequencyBinCount);
+
+        visualizerStarted = true;
+
+        animateVisualizer();
+    }
+
+    if (audioContext.state === "suspended") {
+        await audioContext.resume();
+    }
+
+    await lagu.play();
+
+    cover.style.animationPlayState = "running";
+
+    status.innerHTML = "● PLAYING";
+}
+
+
+// =========================
+// PAUSE
+// =========================
+
+function pauseLagu() {
+
+    lagu.pause();
+
+    cover.style.animationPlayState = "paused";
+
+    status.innerHTML = "● PAUSED";
+}
+
+
+// =========================
+// VISUALIZER
+// =========================
+
+function animateVisualizer() {
+
+    requestAnimationFrame(animateVisualizer);
+
+    if (!analyser) return;
+
+    analyser.getByteFrequencyData(dataArray);
+
+    visualizer.forEach(function(bar, index) {
+
+        let value =
+            dataArray[index] || 0;
+
+        let height =
+            8 + (value / 255) * 60;
+
+        bar.style.height =
+            height + "px";
+
+    });
+}
+
+
+// =========================
+// FORMAT WAKTU
+// =========================
+
+function formatTime(seconds) {
+
+    if (!isFinite(seconds) || seconds < 0) {
+        return "0:00";
+    }
+
+    let minutes =
+        Math.floor(seconds / 60);
+
+    let secs =
+        Math.floor(seconds % 60);
+
+    return minutes + ":" +
+        String(secs).padStart(2, "0");
+}
+
+
+// =========================
+// DURASI LAGU
+// =========================
+
+lagu.addEventListener("loadedmetadata", function() {
+
+    duration.innerHTML =
+        formatTime(lagu.duration);
+
+    currentTime.innerHTML =
+        "0:00";
+
+});
+
+
+// =========================
+// TIMER + PROGRESS + LIRIK
+// =========================
+
+lagu.addEventListener("timeupdate", function() {
+
+    // Ambil waktu asli audio
+    let waktu =
+        lagu.currentTime;
+
+    // Timer
+    currentTime.innerHTML =
+        formatTime(waktu);
+
+
+    // Progress bar
+    if (lagu.duration) {
+
+        let persen =
+            (waktu / lagu.duration) * 100;
+
+        progress.style.width =
+            persen + "%";
+    }
+
+
+    // LIRIK
+    for (let i = 0; i < lyrics.length; i++) {
+
+        let mulai =
+            Number(
+                lyrics[i].getAttribute("data-time")
+            );
+
+        let selesai =
+            i + 1 < lyrics.length
+            ? Number(
+                lyrics[i + 1]
+                .getAttribute("data-time")
+              )
+            : Infinity;
+
+
+        if (waktu >= mulai && waktu < selesai) {
+
+            lyrics[i].classList.add("active");
+
+
+            if (activeIndex !== i) {
+
+                activeIndex = i;
+
+                lyrics[i].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+        } else {
+
+            lyrics[i].classList.remove("active");
+
+        }
+
+    }
+
+});
+
+// =========================
+// KLIK PROGRESS BAR
+// =========================
+
+const progressContainer =
+    document.querySelector(".progress-container");
+
+if (progressContainer) {
+
+    progressContainer.addEventListener("click", function(event) {
+
+        if (!lagu.duration) return;
+
+        const rect =
+            progressContainer.getBoundingClientRect();
+
+        const posisi =
+            event.clientX - rect.left;
+
+        const persen =
+            posisi / rect.width;
+
+        lagu.currentTime =
+            persen * lagu.duration;
+
+    });
+
+}
+// =========================
+// VOLUME
+// =========================
+
+if (volume) {
+
+    volume.addEventListener("input", function() {
+
+        lagu.volume =
+            Number(volume.value);
+
+    });
+
+}
+
+
+// =========================
+// SAAT LAGU SELESAI
+// =========================
+
+lagu.addEventListener("ended", function() {
+
+    cover.style.animationPlayState = "paused";
+
+    status.innerHTML = "● PAUSED";
+
+    progress.style.width = "0%";
+
+    currentTime.innerHTML = "0:00";
+
+    activeIndex = -1;
+
+});
+// =========================
+// MOUSE GLOW
+// =========================
+
+document.addEventListener("mousemove", function(event) {
+
+    document.body.style.setProperty(
+        "--mouse-x",
+        event.clientX + "px"
+    );
+
+    document.body.style.setProperty(
+        "--mouse-y",
+        event.clientY + "px"
+    );
+
+});
+
+
+// =========================
+// MUSIC BOT
+// =========================
+
+function musicBot(text) {
+
+    addChat(
+        "MUSIC BOT",
+        text,
+        "system"
+    );
+
+}
+
+
+// =========================
+// PLAY EVENT
+// =========================
+
+lagu.addEventListener("play", function() {
+
+    document.body.classList.add("playing");
+
+    musicBot(
+        "🎵 Playback detected. Music engine is running."
+    );
+
+    addLog(
+        "Audio stream is now active"
+    );
+
+});
+
+
+// =========================
+// PAUSE EVENT
+// =========================
+
+lagu.addEventListener("pause", function() {
+
+    if (!lagu.ended) {
+
+        document.body.classList.remove("playing");
+
+        musicBot(
+            "⏸ Playback paused. Waiting for resume..."
+        );
+
+        addLog(
+            "Audio stream temporarily paused"
+        );
+
+    }
+
+});
+
+
+// =========================
+// SONG ENDED
+// =========================
+
+lagu.addEventListener("ended", function() {
+
+    document.body.classList.remove("playing");
+
+    musicBot(
+        "✓ Track completed. Ready for another session."
+    );
+
+    addLog(
+        "Playback session completed"
+    );
+
+});
+// =========================
+// SKIP 10 DETIK
+// =========================
+
+function mundur() {
+
+    lagu.currentTime =
+        Math.max(0, lagu.currentTime - 10);
+
+    addLog("Skipped backward 10 seconds");
+
+}
+
+
+function maju() {
+
+    if (!lagu.duration) return;
+
+    lagu.currentTime =
+        Math.min(
+            lagu.duration,
+            lagu.currentTime + 10
+        );
+
+    addLog("Skipped forward 10 seconds");
+
+}
+
+
+// =========================
+// KEYBOARD CONTROL
+// =========================
+
+document.addEventListener("keydown", function(event) {
+
+    // Jangan ganggu input/slider
+    if (
+        event.target.tagName === "INPUT" ||
+        event.target.tagName === "TEXTAREA"
+    ) {
+        return;
+    }
+
+
+    // SPACE = PLAY / PAUSE
+
+    if (event.code === "Space") {
+
+        event.preventDefault();
+
+        if (lagu.paused) {
+
+            playLagu();
+
+        } else {
+
+            pauseLagu();
+
+        }
+
+    }
+
+
+    // ← = mundur
+
+    if (event.code === "ArrowLeft") {
+
+        mundur();
+
+    }
+
+
+    // → = maju
+
+    if (event.code === "ArrowRight") {
+
+        maju();
+
+    }
+
+});
+// =========================
+// CHAT ANIMATION
+// =========================
+
+const messages =
+    document.querySelectorAll(".message");
+
+messages.forEach(function(message, index) {
+
+    message.style.opacity = "0";
+
+    setTimeout(function() {
+
+        message.style.opacity = "1";
+
+    }, 300 + (index * 500));
+
+});
+</script>
+
+</body>
+</html>
